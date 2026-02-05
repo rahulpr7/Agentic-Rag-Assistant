@@ -160,7 +160,7 @@ def score_documents(
 # Rewrite Query
 ###########################
 class ModifiedQuery(BaseModel):
-    query: str = Field(..., description="The enhanced query in Spanish to search into the vector store.")
+    query: str = Field(..., description="The enhanced query in English to search into the vector store.")
 
 
 def rewrite_query(

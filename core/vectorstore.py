@@ -1,4 +1,6 @@
 import os
+from core.logger import logger
+
 from dotenv import load_dotenv
 _ = load_dotenv()
 
@@ -36,9 +38,9 @@ async def _add_documents_batch_with_retry(
     index_name: str
 ) -> List[str]:
     """Helper function to add a single batch of documents with retries."""
-    print(f"Attempting to add batch of {len(batch)} documents to Pinecone index '{index_name}'...")
+    logger.info(f"Attempting to add batch of {len(batch)} documents to Pinecone index '{index_name}'...")
     ids = await vector_store.aadd_documents(batch)
-    print(f"Successfully added batch of {len(ids)} documents.")
+    logger.info(f"Successfully added batch of {len(ids)} documents.")
     return ids
 
 async def add_documents_to_vector_store(
@@ -50,7 +52,7 @@ async def add_documents_to_vector_store(
     Adds documents to the vector store in batches with retries and delays.
     """
     if not documents:
-        print("No documents to add to vector store.")
+        logger.warning("No documents to add to vector store.")
         return []
 
     all_indexed_ids = []
@@ -62,8 +64,8 @@ async def add_documents_to_vector_store(
             all_indexed_ids.extend(indexed_ids)
             await asyncio.sleep(2) # Small delay between batches to respect rate limits
         except Exception as e:
-            print(f"Fatal error after retries for batch starting at index {i}: {e}")
+            logger.error(f"Fatal error after retries for batch starting at index {i}: {e}")
             raise
 
-    print(f"Added {len(all_indexed_ids)} total document chunks to Pinecone index '{index_name}'.")
+    logger.info(f"Added {len(all_indexed_ids)} total document chunks to Pinecone index '{index_name}'.")
     return all_indexed_ids
