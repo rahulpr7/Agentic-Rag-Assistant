@@ -1,0 +1,32 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+venv/
+env/
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+
+# Project specific files
+sample_code.py
+data/
+
+# Frontend
+node_modules/
+.env
+.env.local
+__pycache__/
+*.pyc
+.DS_Store
+npm-debug.log*
