@@ -1,1 +1,1 @@
-(@workflow.png)
+![Workflow](workflow.png)
